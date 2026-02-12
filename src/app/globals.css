@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.card:hover .pizza{
+    transform: scale(1.1);
+}
+
+.pizza{
+    transition: transform 0.5s ease;
+}
+
+.active {
+    background-color: orangered;
+    color: white;
+}
