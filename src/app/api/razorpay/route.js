@@ -17,9 +17,9 @@ export async function POST(req) {
     //update the payment
     if (verified) {
         const updatedPayment = await Order.findOneAndUpdate({ order_id: body.razorpay_order_id }, { paid: "true" }, { new: true })
-        return NextResponse.redirect(`https://food-delivery-one-nine.vercel.app/order/${body.razorpay_order_id}?paymentdone=true`);
+        return NextResponse.redirect(`https://food-delivery-one-ten.vercel.app/order/${body.razorpay_order_id}?paymentdone=true`);
     }
     else {
-        return NextResponse.redirect(`https://food-delivery-one-nine.vercel.app/cart?paymentdone=false`);
+        return NextResponse.redirect(`https://food-delivery-one-ten.vercel.app/cart?paymentdone=false`);
     }
 }
