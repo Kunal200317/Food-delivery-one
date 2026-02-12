@@ -97,7 +97,7 @@ const CartContent = () => {
       description: "Test Transaction",
       image: "https://example.com/your_logo",
       order_id: order.id,
-      callback_url: "http://localhost:3000/api/razorpay",
+      callback_url: "https://food-delivery-one-nine.vercel.app/api/razorpay",
       prefill: {
         name: "Gaurav Kumar",
         email: "gaurav.kumar@example.com",
