@@ -13,7 +13,7 @@ const Hero = () => {
             </div>
 
             <div className='headimage'>
-                <Image src={"/headpizza.png"} width={400} height={400} alt='pizza'></Image>
+                <Image  src={"/headpizza.png"} width={400} height={400} alt='pizza'></Image>
             </div>
         </section>
     )

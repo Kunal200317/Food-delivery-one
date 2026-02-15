@@ -21,11 +21,11 @@ const HomeManu = () => {
   return (
     <section >
       <div className='relative'>
-        <div className='absolute left-[-16] top-[-55px] z-[-5]'>
+        <div className='absolute left-[-16px] top-[-55px] z-[-1]'>
           <Image src={"/sallad1.png"} width={110} height={110} alt='pizza'></Image>
         </div>
 
-        <div className='absolute right-[-16] bottom-[-12px] z-[-5]'>
+        <div className='absolute right-[-16px] bottom-[-12px] z-[-1]'>
           <Image src={"/sallad2.png"} width={110} height={110} alt='pizza'></Image>
         </div>
 

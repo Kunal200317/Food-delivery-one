@@ -15,6 +15,20 @@ const Headar = () => {
     setIsClient(true);
   }, []);
 
+  useEffect(() => {
+    const handleOutsideClick = (event) => {
+      // Check if click is outside the menu and not on the hamburger button (to prevent immediate reopening)
+      if (slide && !event.target.closest('.mobile-menu') && !event.target.closest('.hamburger-btn')) {
+        setSlide(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [slide]);
+
   if (!isClient) return null; // avoid SSR mismatch
 
   let userName = session?.user?.name || session?.user?.email;
@@ -38,14 +52,14 @@ const Headar = () => {
               )}
             </Link>
           </div>
-          <div onClick={() => setSlide(true)} className='p-1 rounded-md'>
+          <div onClick={() => setSlide(!slide)} className='p-1 rounded-md hamburger-btn'>
             <img className='w-8' src="/hamburggar.svg" alt="menu" />
           </div>
         </div>
       </div>
 
       {/* Slide down menu (mobile only) */}
-      <div className={`md:hidden rounded-md bg-gray-200 p-1 absolute transform transition-transform duration-500 ease-in-out ${slide ? '-translate-y-14' : '-translate-y-40'} left-0 w-full z-10`}>
+      <div className={`md:hidden rounded-md bg-gray-200 p-1 absolute transform transition-transform duration-500 ease-in-out ${slide ? '-translate-y-14' : '-translate-y-40'} left-0 w-full z-10 mobile-menu`}>
         <div className='flex justify-between items-center px-4 py-2'>
           <nav className='flex gap-3'>
             <Link className='text-gray-600 font-semibold hover:underline' href="/">Home</Link>
@@ -57,18 +71,24 @@ const Headar = () => {
           <div className='flex justify-center items-center gap-2'>
             {status === 'authenticated' ? (
               <>
-                {/* <Link className='text-gray-600 font-medium' href='/profile'>Hello,{userName}</Link> */}
+                <Link className='whitespace-nowrap' href='/profile'>
+                  <div className='w-8 h-8 rounded-full overflow-hidden cursor-pointer'>
+                    {session.user?.image ? (
+                      <img src={session.user.image} alt={userName} className="w-full h-full object-cover" />
+                    ) : (
+                      <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500 font-bold">
+                        {userName?.charAt(0)?.toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+                </Link>
                 <button className='bg-primary px-3 py-1 text-white rounded-full text-xs font-semibold' onClick={() => signOut()}>Logout</button>
               </>
             ) : (
               <>
-                <Link className='bg-primary px-3 py-1 text-white rounded-full text-xs font-semibold' href="/login">Login</Link>  
+                <Link className='bg-primary px-3 py-1 text-white rounded-full text-xs font-semibold' href="/login">Login</Link>
               </>
             )}
-          </div>
-
-          <div onClick={() => setSlide(false)} className='p-1'>
-            <img className='w-8' src="/hamburggar.svg" alt="close" />
           </div>
         </div>
 
